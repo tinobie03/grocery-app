@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Purchases</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            color: #444;
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #007bff;
+        }
+
+        ul {
+            max-width: 600px;
+            margin: 20px auto;
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        form input, form button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Total Purchases</h1>
+
+    <!-- Back Button -->
+    <a href="/" class="back-button">Back to Dashboard</a>
+    
+    <!-- Add Purchase Form -->
+    <h2>Add a New Purchase</h2>
+    <form id="addPurchaseForm">
+        <input type="text" name="item_name" placeholder="Item Name" required>
+        <input type="number" name="quantity" placeholder="Quantity" required>
+        <input type="number" name="price" placeholder="Price per Item" step="0.01" required>
+        <button type="submit">Add Purchase</button>
+    </form>
+
+    <h2>Purchases List</h2>
+    <ul id="purchasesList">
+        {% for purchase in purchases %}
+        <li>{{ purchase.item_name }} - Quantity: {{ purchase.quantity }}, Total: ${{ purchase.total }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Total Purchases: ${{ total_purchases }}</h3>
+
+    <!-- JavaScript for dynamic update -->
+    <script>
+        
+        document.getElementById('addPurchaseForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the form from submitting the default way
+
+    const formData = new FormData(this);
+
+    fetch('/add_purchase', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Clear form inputs
+        document.getElementById('addPurchaseForm').reset();
+
+        // Add new purchase item to the list dynamically
+        const purchasesList = document.getElementById('purchasesList');
+        const newPurchase = document.createElement('li');
+        newPurchase.textContent = `${data.item_name} - Quantity: ${data.quantity}, Total: $${data.total}`;
+        purchasesList.appendChild(newPurchase);
+
+        // Update total purchases
+        document.querySelector('h3').textContent = `Total Purchases: $${data.total_purchases}`;
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+    </script>
+    
+    
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Accounting App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2d3748; /* Dark gray/blue */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #e2e8f0; /* Light gray text */
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .sidebar a:hover {
+            background-color: #4a5568; /* Slightly lighter gray */
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .stat-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 200px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .stat-card p {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Grocery Inventory</h2>
+        <a href="/">Dashboard</a>
+        <a href="/add_transactions">Add Stock</a>
+        <a href="/sales_management">Sales</a>
+        <a href="/total_purchases">Purchases</a>
+    </div>
+    <div class="content">
+        <h1>Dashboard</h1>
+        <div class="stats">
+            <div class="stat-card">
+                <p>Total Items:</p>
+                <p>{{ total_items }}</p>
+            </div>
+            <div class="stat-card">
+                <p>Total Sales:</p>
+                <p>${{ total_sales }}</p>
+            </div>
+            <div class="stat-card">
+                <p>Total Purchases:</p>
+                <p>${{ total_purchases }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

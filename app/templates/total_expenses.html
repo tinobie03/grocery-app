@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Expenses</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            color: #444;
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #007bff;
+        }
+
+        ul {
+            max-width: 600px;
+            margin: 20px auto;
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Total Expenses</h1>
+
+    <!-- Back Button -->
+    <a href="/" class="back-button">Back to Dashboard</a>
+    
+    <h2>Expenses List</h2>
+    <ul>
+        {% for expense in expenses %}
+        <li>{{ expense.description }} - Amount: ${{ expense.amount }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Total Expenses: ${{ total_expenses }}</h3>
+</body>
+</html>

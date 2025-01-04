@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div style="background-color: #fff; padding: 20px; border-radius: 8px; width: 80%; max-width: 1200px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <h1 style="text-align: center; margin-bottom: 20px; color: #333;">Add Item</h1>
+        
+        <!-- Back Button -->
+        <a href="/" style="display: inline-block; margin-bottom: 20px; background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Back to Dashboard</a>
+
+        <!-- Add Item Form -->
+        <form action="/add_item" method="POST" style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <input type="text" name="item_name" placeholder="Item Name" required style="padding: 10px; flex: 1; border: 1px solid #ddd; border-radius: 4px;">
+            <input type="number" name="quantity" placeholder="Quantity" required style="padding: 10px; flex: 1; border: 1px solid #ddd; border-radius: 4px;">
+            <input type="number" name="price" placeholder="Price" step="0.01" required style="padding: 10px; flex: 1; border: 1px solid #ddd; border-radius: 4px;">
+            <button type="submit" style="padding: 10px; background-color: #28a745; color: #fff; border: none; border-radius: 4px; cursor: pointer;">Add Item</button>
+        </form>
+
+        <!-- Items Table -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th style="text-align: left; padding: 10px; border-bottom: 2px solid #ddd;">Item Name</th>
+                    <th style="text-align: left; padding: 10px; border-bottom: 2px solid #ddd;">Quantity</th>
+                    <th style="text-align: left; padding: 10px; border-bottom: 2px solid #ddd;">Price</th>
+                    <th style="text-align: left; padding: 10px; border-bottom: 2px solid #ddd;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ item.item_name }}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ item.quantity }}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">${{ item.price }}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+                        <a href="/edit_item/{{ item._id }}" style="color: #007bff; text-decoration: none; margin-right: 10px;">Update</a>
+                        
+                        <a href="/delete_item/{{ item._id }}" style="color: #dc3545; text-decoration: none;">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if items|length == 0 %}
+        <p style="text-align: center; color: #888; margin-top: 20px;">No items to display.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
